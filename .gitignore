@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+!.env.example
+.vercel/
+.claude/settings.local.json
+.claude/worktrees/
+.DS_Store

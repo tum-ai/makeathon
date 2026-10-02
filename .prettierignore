@@ -1,0 +1,9 @@
+bun.lock
+node_modules
+.next
+coverage
+playwright-report
+test-results
+vendor
+public
+e2e/__screenshots__
