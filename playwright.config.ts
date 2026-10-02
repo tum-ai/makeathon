@@ -13,9 +13,19 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "webkit", use: { ...devices["Desktop Safari"] } },
-    { name: "phone", use: { ...devices["iPhone 15"] } },
+    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testIgnore: /no-webgl/ },
+    { name: "webkit", use: { ...devices["Desktop Safari"] }, testIgnore: /no-webgl/ },
+    { name: "phone", use: { ...devices["iPhone 15"] }, testIgnore: /no-webgl/ },
+    {
+      // The CSS fallback, with WebGL switched off. The flags are Chromium's;
+      // WebKit on Linux refuses to launch with them.
+      name: "chromium-no-webgl",
+      use: {
+        ...devices["Desktop Chrome"],
+        launchOptions: { args: ["--disable-webgl", "--disable-3d-apis"] },
+      },
+      testMatch: /no-webgl/,
+    },
   ],
   webServer: {
     // The production build; run `bun run build` first (CI does).
