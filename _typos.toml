@@ -1,0 +1,13 @@
+[files]
+extend-exclude = [
+  "*.lock",
+  "*.svg",
+  "*.tgz",
+  "public/",
+  "vendor/",
+]
+
+[default.extend-words]
+# Real 2026 team names in src/config/makeathon.ts.
+undeterministic = "undeterministic"
+Studi = "Studi"
