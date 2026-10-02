@@ -24,6 +24,13 @@ test.describe("the Makeathon site", () => {
     expect(errors).toEqual([]);
   });
 
+  test("leaves Safari's bars to the page", async ({ page }) => {
+    await page.goto("/");
+    // A dark color-scheme meta makes Safari fill its bars solid (AGENTS.md, "Safari bars").
+    await expect(page.locator('meta[name="color-scheme"]')).toHaveCount(0);
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0d0214");
+  });
+
   test("passes axe (WCAG 2 A and AA)", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");

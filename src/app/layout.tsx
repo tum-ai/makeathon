@@ -38,9 +38,16 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "TUM.ai Makeathon", description },
 };
 
+/*
+ * Safari 26 ignores theme-color and tints its status bar and toolbar from the
+ * page. A document-wide dark `color-scheme` meta makes it fill both bars with
+ * a solid colour instead of letting the page show through, so there is none:
+ * the dark bands get `color-scheme: dark` from their `data-tone`. The
+ * theme-color is for browsers that still read it (Chrome on Android) and
+ * matches the root canvas (the kit's shell.css). See "Safari bars" in AGENTS.md.
+ */
 export const viewport: Viewport = {
   themeColor: "#0d0214",
-  colorScheme: "dark",
 };
 
 // Marks the document as scripted before the first paint, so pinned layouts

@@ -41,6 +41,20 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
   ARIA slider and a static path for reduced motion.
 - `src/components/nav-scroll.tsx`: in-page links glide past pinned scenes (`data-scroll-skip`).
 
+## Safari bars
+
+Safari 26 on iPhone ignores `theme-color` and tints its status bar and toolbar from the page: from
+the root canvas at the page's ends and from fixed or sticky elements touching an edge. Mid-page
+the page should show through both bars, as on tum-ai.com.
+
+- The root canvas is brand black (the kit's `shell.css`), and the page starts on the night hero
+  and ends on the kit footer, whose `TopBlend` fades into it, so both ends meet the bars without
+  a seam.
+- The kit header floats 10 px below the top edge so it doesn't tint the status bar.
+- No document-wide `color-scheme` meta (`src/app/layout.tsx`): a dark one makes Safari fill both
+  bars solid. Dark bands set `color-scheme: dark` through their `data-tone`. An e2e test guards it.
+- Playwright WebKit doesn't render the bar tint. Check on a real iPhone (see `ui-verify`).
+
 ## Checks
 
 `bun run lint`, `bun run typecheck`, `bun run test` while working; `bun run verify` (adds format,

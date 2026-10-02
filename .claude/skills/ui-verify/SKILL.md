@@ -17,4 +17,7 @@ description: Look at a Makeathon site change in a real browser. Use after changi
    halftone fallback; the `chromium-no-webgl` Playwright project).
 5. Use the keyboard on the replay slider and the nav, and check focus visibility.
 6. List what you checked separately from what still needs a human: VoiceOver, real iPhone
-   Safari, zoom and reflow.
+   Safari, zoom and reflow. On the iPhone ("Safari bars" in AGENTS.md):
+   - On load the status bar is the hero's brand black, with no strip above the hero.
+   - Mid-page (results, the FAQ, after the replay) the page shows through both bars.
+   - Overscrolling past either end shows brand black.
