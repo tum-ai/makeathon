@@ -2,9 +2,7 @@
 extend-exclude = [
   "*.lock",
   "*.svg",
-  "*.tgz",
   "public/",
-  "vendor/",
 ]
 
 [default.extend-words]

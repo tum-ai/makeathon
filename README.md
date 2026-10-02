@@ -44,5 +44,6 @@ Open content questions (each is a `TODO(content)` in the config):
 
 ## The ui-kit
 
-The kit is not on npm yet, so it is installed from a packed tarball in [`vendor/`](vendor/README.md),
-which also explains how to update it or switch to the registry.
+The kit is installed from npm at an exact version. To update it, run
+`bun add -E @tum.ai/ui-kit@<version>`, then `bun run verify`; the production build's kit CSS
+sentinel catches kit styles that went missing.

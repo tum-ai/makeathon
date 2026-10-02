@@ -1,21 +1,14 @@
 ---
 name: update-kit
-description: Re-vendor the TUM.ai ui-kit tarball into the Makeathon site. Use when the kit changed and the site needs the new build, or when switching to the npm registry release.
+description: Update the TUM.ai ui-kit (`@tum.ai/ui-kit` from npm) in the Makeathon site. Use when a new kit version is released and the site needs it.
 ---
 
 # update-kit
 
-Follow `vendor/README.md` exactly:
-
-1. Work from a clean ui-kit checkout (`../ui-kit`) at a committed SHA, and don't edit it. If it has
-   uncommitted changes, ask first.
-2. `bun install --frozen-lockfile && bun run build && npm pack --ignore-scripts --pack-destination artifacts`
-   in the kit.
-3. Copy the tarball to `vendor/tum.ai-ui-kit-<version>-<sha7>.tgz`, point `package.json` at it,
-   run `bun install`, and delete the old tarball.
-4. Update the table in `vendor/README.md`: file, version, source SHA, date, `shasum -a 256`.
-5. Run `bun run build` (the postbuild kit CSS sentinel catches missing kit styles), then the
+1. Find the release: `npm view @tum.ai/ui-kit version`. Read what changed in
+   [tum-ai/ui-kit](https://github.com/tum-ai/ui-kit) between the installed and the new version.
+2. `bun add -E @tum.ai/ui-kit@<version>`: the version stays exact and `bun.lock` follows.
+3. Run `bun run build` (the postbuild kit CSS sentinel catches missing kit styles), then the
    `pr-ready` skill.
 
-Once `@tum.ai/ui-kit` is on the registry, switch to the exact version, delete `vendor/`, and
-remove the Dependabot ignore for the kit.
+Kit problems are fixed and released in the kit, never patched here.

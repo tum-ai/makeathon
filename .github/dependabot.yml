@@ -10,9 +10,6 @@ updates:
     commit-message:
       prefix: chore
       include: scope
-    # The ui-kit is vendored (vendor/README.md); bump it by re-vendoring.
-    ignore:
-      - dependency-name: "@tum.ai/ui-kit"
     groups:
       next:
         patterns: ["next", "@next/*", "react", "react-dom", "@types/react", "@types/react-dom"]

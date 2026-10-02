@@ -11,7 +11,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 # TUM.ai Makeathon site
 
 Next 16 (App Router) / React 19 / Tailwind 4 on the TUM.ai design system `@tum.ai/ui-kit`
-(vendored tarball, see `vendor/README.md`). Bun, TypeScript, ESLint, Prettier, Vitest, Playwright.
+(from npm, pinned to an exact version). Bun, TypeScript, ESLint, Prettier, Vitest, Playwright.
 Preserve unrelated work; no commits, pushes or deployments without authorization.
 
 ## Rules
@@ -30,8 +30,8 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
   `src/lib/weekend.ts`) run on the server; client code reads `src/lib/weekend-view.ts`. ESLint
   enforces it.
 - **Kit:** import from `@tum.ai/ui-kit` and `@tum.ai/ui-kit/shell` only. Read the kit's
-  `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub; the tarball ships no
-  docs) before UI changes; fix kit problems in the kit, not here.
+  `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub; the npm package ships
+  no docs) before UI changes; fix kit problems in the kit, not here.
 
 ## The signature pieces
 

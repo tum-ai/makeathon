@@ -4,6 +4,5 @@ node_modules
 coverage
 playwright-report
 test-results
-vendor
 public
 e2e/__screenshots__
