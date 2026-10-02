@@ -22,20 +22,49 @@
 
 @media (prefers-reduced-motion: no-preference) {
   :root[data-js] .replay {
-    height: 420svh;
+    --replay-h: 420svh;
+    height: var(--replay-h);
   }
 
   :root[data-js] .replay-stage {
+    --stage-h: max(100svh, 34rem);
     position: sticky;
     top: 0;
-    height: 100svh;
-    min-height: 34rem;
+    height: var(--stage-h);
+  }
+
+  /*
+   * Safari 26 tints its status bar and toolbar solid from a sticky element
+   * at the screen edges and keeps that tint for the rest of the page, so
+   * where scroll timelines exist the stage is not sticky. It stays in the
+   * flow and a scroll-driven translate carries it down exactly as fast as
+   * the page scrolls, over the same span (replay minus stage) that sticky
+   * would hold it. See "Safari bars" in AGENTS.md.
+   */
+  @supports (animation-timeline: view()) {
+    :root[data-js] .replay {
+      view-timeline: --replay block;
+      view-timeline-inset: 0;
+    }
+
+    :root[data-js] .replay-stage {
+      position: relative;
+      animation: replay-pin linear both;
+      animation-timeline: --replay;
+      animation-range: contain 0px contain calc(var(--replay-h) - var(--stage-h));
+    }
   }
 }
 
 @media (prefers-reduced-motion: no-preference) and (max-width: 47.99rem) {
   :root[data-js] .replay {
-    height: 340svh;
+    --replay-h: 340svh;
+  }
+}
+
+@keyframes replay-pin {
+  to {
+    translate: 0 calc(var(--replay-h) - var(--stage-h));
   }
 }
 

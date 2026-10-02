@@ -56,6 +56,30 @@ test.describe("the Makeathon site", () => {
     await expect(slider).toHaveAttribute("aria-valuenow", "2880");
   });
 
+  test("holds the weekend stage still without sticking it", async ({ page }) => {
+    await page.goto("/");
+    const stage = page.locator(".replay-stage");
+    const box = await page.locator(".replay").evaluate((el) => ({
+      top: el.getBoundingClientRect().top + window.scrollY,
+      span: el.scrollHeight - (el.firstElementChild as HTMLElement).offsetHeight,
+    }));
+    for (const at of [0.1, 0.5, 0.9]) {
+      await page.evaluate(({ top, span, at }) => window.scrollTo(0, top + span * at), {
+        ...box,
+        at,
+      });
+      await expect
+        .poll(() => stage.evaluate((el) => Math.abs(el.getBoundingClientRect().top)))
+        .toBeLessThanOrEqual(1);
+    }
+    // A sticky stage makes Safari tint its bars solid (AGENTS.md, "Safari bars").
+    const sticky = await stage.evaluate(
+      (el) =>
+        CSS.supports("animation-timeline: view()") && getComputedStyle(el).position === "sticky",
+    );
+    expect(sticky).toBe(false);
+  });
+
   test("keeps the weekend in the flow under reduced motion", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");

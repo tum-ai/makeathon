@@ -40,11 +40,11 @@ export const metadata: Metadata = {
 
 /*
  * Safari 26 ignores theme-color and tints its status bar and toolbar from the
- * page. Nothing dark spans the whole document, so the page can show through
- * them: no dark `color-scheme` meta, and no tone on `#app-root` (below). Each
- * band brings its own tone, and the root canvas between them is the kit's
- * brand black (shell.css). The theme-color is for browsers that still read it
- * (Chrome on Android) and matches that canvas. See "Safari bars" in AGENTS.md.
+ * page. As on tum-ai.com, nothing dark spans the whole document: no
+ * `color-scheme` meta and no tone on `#app-root` (below). Each band brings its
+ * own tone, and the root canvas between them is the kit's brand black
+ * (shell.css). The theme-color is for browsers that still read it (Chrome on
+ * Android) and matches that canvas. See "Safari bars" in AGENTS.md.
  */
 export const viewport: Viewport = {
   themeColor: "#0d0214",

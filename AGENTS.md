@@ -51,9 +51,13 @@ the page should show through both bars, as on tum-ai.com.
   and ends on the kit footer, whose `TopBlend` fades into it, so both ends meet the bars without
   a seam.
 - The kit header floats 10 px below the top edge so it doesn't tint the status bar.
-- Nothing dark spans the whole document (`src/app/layout.tsx`): no `color-scheme` meta and no
-  tone on `#app-root`, which stays transparent. Every band sets its own `data-tone`, which also
-  gives the dark ones `color-scheme: dark`. An e2e test guards both.
+- No sticky or fixed element may touch a screen edge. Once Safari has tinted the bars from one,
+  the tint stays for the rest of the page. The pinned 48-hour replay therefore doesn't use
+  `position: sticky` where scroll timelines exist: a scroll-driven translate holds the stage
+  instead (`src/styles/weekend.css`), and an e2e test checks it stays still and isn't sticky.
+- As on tum-ai.com, nothing dark spans the whole document (`src/app/layout.tsx`): no
+  `color-scheme` meta and no tone on `#app-root`. Every band sets its own `data-tone`, which also
+  gives the dark ones `color-scheme: dark`.
 - Playwright WebKit doesn't render the bar tint. Check on a real iPhone (see `ui-verify`).
 
 ## Checks
