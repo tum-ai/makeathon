@@ -30,7 +30,8 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
   `src/lib/weekend.ts`) run on the server; client code reads `src/lib/weekend-view.ts`. ESLint
   enforces it.
 - **Kit:** import from `@tum.ai/ui-kit` and `@tum.ai/ui-kit/shell` only. Read the kit's
-  `docs/design-system.md` before UI changes; fix kit problems in the kit, not here.
+  `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub; the tarball ships no
+  docs) before UI changes; fix kit problems in the kit, not here.
 
 ## The signature pieces
 
@@ -44,4 +45,15 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
 
 `bun run lint`, `bun run typecheck`, `bun run test` while working; `bun run verify` (adds format,
 the production build with the kit CSS sentinel, and Playwright in Chromium, WebKit and a phone
-profile) before delivery. Run `next dev` and Playwright outside the Claude Code sandbox.
+profile) before delivery. Run `next dev` and Playwright outside the Claude Code sandbox. CI
+(`.github/workflows/ci.yml`) runs the same steps plus typos (`_typos.toml`) and actionlint, and
+gates on `Verify`.
+
+## Delivery
+
+`main` deploys to production on Vercel (team `tum-ai`, project `makeathon`, config in
+`vercel.json`); pull requests get preview deployments. makeathon.tum-ai.com still points at the
+old `makeathon2022` project until the cutover.
+
+Claude Code: `.claude/skills/` has `pr-ready`, `ui-verify` and `update-kit`; `.claude/agents/`
+has read-only `design-reviewer` and `a11y-reviewer`.
