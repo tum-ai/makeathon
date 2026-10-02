@@ -1,0 +1,82 @@
+/*
+ * The close: the sun rises again over a horizon, answering the hero. Only the
+ * disc is clipped at the horizon; its glow sits outside the clip, so it
+ * spreads freely into the band.
+ */
+
+.close-horizon {
+  position: relative;
+  width: min(100%, 44rem);
+  height: clamp(5rem, 11vw, 8.5rem);
+  margin-inline: auto;
+  --close-sun: clamp(7rem, 15vw, 11rem);
+}
+
+.close-disc {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.close-horizon::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(245 239 255 / 0.45) 18%,
+    rgb(245 239 255 / 0.45) 82%,
+    transparent
+  );
+}
+
+.close-horizon .sun {
+  left: 50%;
+  bottom: 0;
+  width: var(--close-sun);
+  translate: -50% 52%;
+}
+
+.close-horizon .sun-disc {
+  mask-image: none;
+}
+
+.close-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--close-sun) * 4.2);
+  aspect-ratio: 1;
+  translate: -50% 50%;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgb(254 188 92 / 0.26),
+    rgb(217 144 91 / 0.1) 46%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-js] .close-horizon .sun {
+    translate: -50% 100%;
+    transition: translate 2.2s var(--ease-brand);
+  }
+
+  :root[data-js] .close-horizon[data-visible] .sun {
+    translate: -50% 52%;
+  }
+
+  :root[data-js] .close-glow {
+    opacity: 0;
+    transition: opacity 2.6s var(--ease-brand) 0.3s;
+  }
+
+  :root[data-js] .close-horizon[data-visible] .close-glow {
+    opacity: 1;
+  }
+}

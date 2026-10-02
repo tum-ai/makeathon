@@ -1,0 +1,64 @@
+/* The hero: the headline with the sun rising behind its last letters. */
+
+/* The dot field grows past the hero into the next band and dissolves there
+   dot by dot (see uFadeBottom in the shader). */
+.hero-field {
+  bottom: -22svh;
+}
+
+.hero-title {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-title .sun {
+  z-index: -1;
+  width: 0.84em;
+  right: 0.02em;
+  top: -0.47em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title .sun {
+    animation: var(--animate-sunrise);
+  }
+
+  .hero-title .sun-glow {
+    animation: var(--animate-glow-in);
+  }
+}
+
+/* A soft scrim so the copy reads over the densest dots on small screens. */
+.hero-scrim {
+  position: absolute;
+  inset: 0 0 -22svh;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 20%,
+    rgb(13 2 20 / 0.5) 48%,
+    rgb(13 2 20 / 0.6) 70%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 64rem) {
+  .hero-scrim {
+    background: linear-gradient(
+      100deg,
+      rgb(13 2 20 / 0.7) 0%,
+      rgb(13 2 20 / 0.35) 42%,
+      transparent 70%
+    );
+  }
+}
+
+/* The live dot in the hero status line: a small sun. */
+.status-sun {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--color-sun-200), var(--color-sun-600));
+  box-shadow: 0 0 0 4px rgb(254 188 92 / 0.14);
+}

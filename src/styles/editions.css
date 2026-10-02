@@ -1,0 +1,51 @@
+/* Every edition: the ledger rows and the sticky poster beside them. */
+
+.edition-row {
+  transition: opacity 0.5s var(--ease-brand);
+}
+
+@media (min-width: 64rem) and (hover: hover) {
+  .editions-list:hover .edition-row:not(:hover) {
+    opacity: 0.55;
+  }
+}
+
+.edition-year {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.5s var(--ease-brand);
+}
+
+.edition-row[data-active] .edition-year {
+  color: var(--tone-accent);
+}
+
+.poster-stack {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-4xl);
+  background: var(--color-ink-950);
+}
+
+.poster-stack > * {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  scale: 1.03;
+  transition:
+    opacity 0.7s var(--ease-brand),
+    scale 1.1s var(--ease-brand);
+}
+
+.poster-stack > [data-active] {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edition-row,
+  .edition-year,
+  .poster-stack > * {
+    transition: none;
+  }
+}

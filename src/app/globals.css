@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "@tum.ai/ui-kit/tailwind.css";
+@import "@tum.ai/ui-kit/shell.css";
+@import "../styles/sun.css";
+@import "../styles/hero.css";
+@import "../styles/weekend.css";
+@import "../styles/editions.css";
+@import "../styles/close.css";
+@import "../styles/seams.css";
+
+/*
+ * The Makeathon sun: the one accent this site adds to the TUM.ai palette.
+ * Sampled from the 2025 and 2026 Makeathon posters (the rising sun behind the
+ * wordmark and the amber halftone dots). Use it only for the sun, the
+ * halftone field and the weekend clock; everything else reads the kit's tone
+ * tokens. `test/brand.test.ts` keeps it to those files.
+ */
+@theme {
+  --color-sun-100: #fff18b;
+  --color-sun-200: #ffe07a;
+  --color-sun-300: #fdd06a;
+  --color-sun-400: #febc5c;
+  --color-sun-500: #f0a85a;
+  --color-sun-600: #d9905b;
+  --color-sun-700: #b97855;
+  --color-sun-800: #8f614c;
+  --color-sun-900: #5e4340;
+
+  /* The headline above everything else: the hero's "Makeathon". */
+  --text-display-hero: clamp(4.25rem, 0.9rem + 14.4vw, 16.5rem);
+  --text-display-hero--line-height: 0.86;
+  --text-display-hero--letter-spacing: -0.065em;
+  --text-display-hero--font-weight: 300;
+
+  --animate-sunrise: sunrise 1.6s var(--ease-brand) 0.15s backwards;
+  --animate-glow-in: fade 2.4s var(--ease-brand) 0.4s backwards;
+
+  @keyframes sunrise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 38%, 0);
+    }
+    35% {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}

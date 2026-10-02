@@ -1,0 +1,334 @@
+/*
+ * The 48-hour replay. The scroll driver (weekend-replay.tsx) writes a few
+ * custom properties on the stage (--p, the playhead from 0 to 1) and on the
+ * sun (--sun-x, --sun-y in container units), and the layer opacities; all
+ * motion is transform and opacity, so scrolling never repaints a gradient.
+ *
+ * Pinned only with JavaScript and without reduced motion. Otherwise the
+ * stage sits in the flow and the slider alone moves the sun.
+ */
+
+.replay {
+  position: relative;
+}
+
+.replay-stage {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: clamp(38rem, 92svh, 58rem);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-js] .replay {
+    height: 420svh;
+  }
+
+  :root[data-js] .replay-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 34rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 47.99rem) {
+  :root[data-js] .replay {
+    height: 340svh;
+  }
+}
+
+/* --- Sky ---------------------------------------------------------------- */
+
+.replay-sky {
+  position: relative;
+  container-type: size;
+  overflow: hidden;
+  background: var(--color-ink-950);
+}
+
+/* Sky layers and dots, faded in from the night above so the stage never
+   starts on a hard edge; the sun sits outside the fade. */
+.replay-atmosphere {
+  position: absolute;
+  inset: 0;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 38%);
+}
+
+.sky-layer {
+  position: absolute;
+  inset: 0;
+  will-change: opacity;
+}
+
+.sky-night {
+  background: linear-gradient(
+    180deg,
+    var(--color-ink-950) 0%,
+    #140036 62%,
+    var(--color-violet-950) 100%
+  );
+}
+
+.sky-twilight {
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-violet-950) 0%,
+    var(--color-violet-900) 46%,
+    var(--color-violet-800) 82%,
+    var(--color-sun-800) 100%
+  );
+}
+
+.sky-day {
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-violet-900) 0%,
+    var(--color-violet-800) 42%,
+    var(--color-violet-700) 100%
+  );
+}
+
+/* Warm light along the horizon under a low sun, following it east to west. */
+.sky-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90cqw;
+  height: 75cqh;
+  opacity: 0;
+  translate: calc(var(--glow-x, 50) * 1cqw - 50%) 38%;
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    rgb(254 188 92 / 0.42),
+    rgb(217 144 91 / 0.16) 45%,
+    transparent 72%
+  );
+  will-change: opacity, translate;
+}
+
+.replay-sun {
+  left: 0;
+  top: 0;
+  width: clamp(2.75rem, 7cqw, 6.75rem);
+  translate: calc(var(--sun-x, 50) * 1cqw - 50%) calc(var(--sun-y, 100) * 1cqh - 50%);
+  will-change: translate;
+}
+
+.replay-sky .sun-disc {
+  /* A full disc in the sky; the horizon does the cutting. */
+  mask-image: none;
+}
+
+.replay-horizon {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(245 239 255 / 0.4) 12%,
+    rgb(245 239 255 / 0.4) 88%,
+    transparent
+  );
+}
+
+/* Entrance and exit: the sky rises out of the night above and, at the end,
+   settles into the ink of the results band below. Opacity set by scroll. */
+.replay-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.replay-veil-in {
+  background: var(--color-ink-950);
+}
+
+.replay-veil-out {
+  background: var(--color-violet-950);
+}
+
+/* --- Ground: readout, moments, ruler ------------------------------------ */
+
+.replay-ground {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-ink-950);
+}
+
+/* The day sky reflected under the horizon, so it never sits on a black floor. */
+.ground-glow {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 70%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgb(106 67 163 / 0.42),
+    rgb(82 53 115 / 0.12) 45%,
+    transparent
+  );
+  will-change: opacity;
+}
+
+/* The ground turns to the ink of the next band as the replay ends. */
+.ground-ink {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--color-violet-950);
+  will-change: opacity;
+}
+
+.replay-compass {
+  display: flex;
+  justify-content: space-between;
+}
+
+.replay-moments {
+  display: grid;
+}
+
+.replay-moment {
+  grid-area: 1 / 1;
+  opacity: 0;
+  translate: 0 0.5rem;
+  transition:
+    opacity 0.5s var(--ease-brand),
+    translate 0.6s var(--ease-brand);
+}
+
+.replay-moment[data-active] {
+  opacity: 1;
+  translate: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .replay-moment {
+    transition: none;
+  }
+}
+
+/* --- Ruler -------------------------------------------------------------- */
+
+.ruler {
+  position: relative;
+  height: 4.25rem;
+  container-type: inline-size;
+  touch-action: pan-y;
+  cursor: ew-resize;
+  border-radius: var(--radius-sm);
+}
+
+.ruler-track {
+  position: absolute;
+  inset-inline: 0;
+  top: 1.75rem;
+  height: 1px;
+  background: rgb(245 239 255 / 0.22);
+}
+
+.ruler-night {
+  position: absolute;
+  top: calc(1.75rem - 3px);
+  height: 7px;
+  left: calc(var(--from) * 100%);
+  width: calc((var(--to) - var(--from)) * 100%);
+  border-radius: 9999px;
+  background: rgb(245 239 255 / 0.08);
+}
+
+.ruler-tick {
+  position: absolute;
+  top: calc(1.75rem + 6px);
+  left: calc(var(--x) * 100%);
+  translate: -50% 0;
+}
+
+.ruler-tick::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 1px;
+  height: 6px;
+  background: rgb(245 239 255 / 0.3);
+}
+
+.ruler-day {
+  position: absolute;
+  top: 0;
+  left: calc(var(--x) * 100%);
+  height: 1.75rem;
+  padding-inline-start: 0.4rem;
+  border-inline-start: 1px solid rgb(245 239 255 / 0.22);
+  line-height: 1.1;
+}
+
+@media (max-width: 47.99rem) {
+  .ruler-tick[data-minor],
+  .ruler-day[data-start] {
+    display: none;
+  }
+}
+
+.ruler-mark {
+  position: absolute;
+  top: calc(1.75rem - 4.5px);
+  left: calc(var(--x) * 100%);
+  width: 9px;
+  height: 9px;
+  translate: -50% 0;
+  border-radius: 9999px;
+  background: var(--color-violet-300);
+  /* Lit once the playhead has passed. */
+  opacity: clamp(0.28, (var(--p, 0) - var(--x)) * 1000 + 1, 1);
+}
+
+.ruler-mark[data-approx] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--color-violet-300);
+}
+
+.ruler-playhead {
+  position: absolute;
+  top: 0.625rem;
+  left: 0;
+  width: 1px;
+  height: 2.25rem;
+  translate: calc(var(--p, 0) * 100cqw) 0;
+  background: var(--color-sun-300);
+  will-change: translate;
+}
+
+.ruler-playhead::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(1.125rem - 6px);
+  width: 12px;
+  height: 12px;
+  translate: -50% 0;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--color-sun-200), var(--color-sun-600));
+  box-shadow: 0 0 0 5px rgb(254 188 92 / 0.16);
+}
+
+.ruler:focus-visible {
+  outline-offset: 6px;
+}
+
+.readout-clock {
+  color: var(--color-sun-200);
+}

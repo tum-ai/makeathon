@@ -1,0 +1,33 @@
+/*
+ * The halftone seam under the results band: dots of the next band's colour
+ * merge into a solid edge along a wavy line and dissolve into the ink, the
+ * way the posters print a gradient. The strip is a mask
+ * (public/seams/halftone-edge.svg, made by scripts/make-seam.mjs); the colour
+ * comes from --seam.
+ */
+.seam {
+  position: absolute;
+  inset-inline: 0;
+  height: 105px;
+  pointer-events: none;
+  background: var(--seam, var(--tone-paper));
+  mask-image: url("/seams/halftone-edge.svg");
+  mask-repeat: repeat-x;
+  mask-size: 480px 105px;
+}
+
+.seam[data-edge="top"] {
+  top: -1px;
+}
+
+.seam[data-edge="bottom"] {
+  bottom: -1px;
+  scale: 1 -1;
+}
+
+@media (max-width: 47.99rem) {
+  .seam {
+    height: 79px;
+    mask-size: 360px 79px;
+  }
+}
