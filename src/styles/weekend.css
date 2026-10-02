@@ -25,11 +25,21 @@
     height: 420svh;
   }
 
+  /* Safari 26 tints its status bar and toolbar solid from a sticky element it
+     hits at the screen edges, and kept the tint after the stage scrolled
+     away. The pinned stage lets hits fall through to the static band (the
+     slider is the only control), so the page shows through the bars. See
+     "Safari bars" in AGENTS.md. */
   :root[data-js] .replay-stage {
     position: sticky;
     top: 0;
     height: 100svh;
     min-height: 34rem;
+    pointer-events: none;
+  }
+
+  :root[data-js] .replay-stage .ruler {
+    pointer-events: auto;
   }
 }
 
