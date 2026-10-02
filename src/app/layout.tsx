@@ -40,11 +40,11 @@ export const metadata: Metadata = {
 
 /*
  * Safari 26 ignores theme-color and tints its status bar and toolbar from the
- * page. A document-wide dark `color-scheme` meta makes it fill both bars with
- * a solid colour instead of letting the page show through, so there is none:
- * the dark bands get `color-scheme: dark` from their `data-tone`. The
- * theme-color is for browsers that still read it (Chrome on Android) and
- * matches the root canvas (the kit's shell.css). See "Safari bars" in AGENTS.md.
+ * page. Nothing dark spans the whole document, so the page can show through
+ * them: no dark `color-scheme` meta, and no tone on `#app-root` (below). Each
+ * band brings its own tone, and the root canvas between them is the kit's
+ * brand black (shell.css). The theme-color is for browsers that still read it
+ * (Chrome on Android) and matches that canvas. See "Safari bars" in AGENTS.md.
  */
 export const viewport: Viewport = {
   themeColor: "#0d0214",
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <MotionProvider>
-          <div id="app-root" data-tone="night">
+          <div id="app-root">
             <SkipLink />
             <Header
               logo={logo}

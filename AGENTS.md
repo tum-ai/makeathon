@@ -51,8 +51,9 @@ the page should show through both bars, as on tum-ai.com.
   and ends on the kit footer, whose `TopBlend` fades into it, so both ends meet the bars without
   a seam.
 - The kit header floats 10 px below the top edge so it doesn't tint the status bar.
-- No document-wide `color-scheme` meta (`src/app/layout.tsx`): a dark one makes Safari fill both
-  bars solid. Dark bands set `color-scheme: dark` through their `data-tone`. An e2e test guards it.
+- Nothing dark spans the whole document (`src/app/layout.tsx`): no `color-scheme` meta and no
+  tone on `#app-root`, which stays transparent. Every band sets its own `data-tone`, which also
+  gives the dark ones `color-scheme: dark`. An e2e test guards both.
 - Playwright WebKit doesn't render the bar tint. Check on a real iPhone (see `ui-verify`).
 
 ## Checks
