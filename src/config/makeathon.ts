@@ -230,7 +230,7 @@ export const referenceWeekend: ReferenceWeekend = {
     {
       key: "sunset-friday",
       title: "Sunset",
-      text: "The first evening of 48 hours.",
+      text: "The first evening.",
       time: { sun: "set", day: "2026-04-17" },
       confirmed: true,
     },
@@ -251,7 +251,7 @@ export const referenceWeekend: ReferenceWeekend = {
     {
       key: "workshops",
       title: "Workshops and talks",
-      text: "Sessions with speakers and partners run alongside the building.",
+      text: "Sessions with speakers and partners run alongside the hacking.",
       // TODO(content): workshop times.
       time: { at: "2026-04-18T11:00:00+02:00" },
       confirmed: false,
@@ -473,14 +473,14 @@ export const partners = {
   /** What a challenge comes with (the TUM.ai website's hackathon offer). */
   offer: [
     { title: "Your own challenge track", text: "Teams build for a problem you set." },
-    { title: "The participant list", text: "CVs included." },
-    { title: "Your brand on site", text: "And a booth of your own." },
-    { title: "A company pitch", text: "On stage, to the participants." },
+    { title: "Access to talent", text: "The CVs of participants who opt in to share them." },
+    { title: "Your brand on site", text: "Your logo at the venue and a booth of your own." },
+    { title: "A company pitch", text: "Introduce your company on stage to every participant." },
   ],
   addOns: "Add a workshop slot, or sponsor the catering.",
   /**
-   * An outcome from the TUM.ai website's partner cases.
-   * TODO(content): confirm this was the osapiens challenge at the Makeathon 2026.
+   * An outcome from the TUM.ai website's partner cases: the osapiens
+   * challenge at the Makeathon 2026.
    */
   outcome: {
     organization: "osapiens",
