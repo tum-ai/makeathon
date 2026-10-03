@@ -1,10 +1,9 @@
 "use client";
 
 import { Actions, Container } from "@tum.ai/ui-kit";
+import { HalftoneField, Sun } from "@tum.ai/ui-kit/halftone";
 import { useEffect, useRef, useState } from "react";
 
-import { Sun } from "@/components/sun";
-import { HalftoneField } from "@/halftone/halftone-field";
 import type { Action } from "@/lib/phase";
 
 import { ActionLink } from "../hero/hero-status";

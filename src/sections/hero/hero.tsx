@@ -1,12 +1,11 @@
 "use client";
 
 import { Container, SplitWords } from "@tum.ai/ui-kit";
+import { HalftoneField, Sun } from "@tum.ai/ui-kit/halftone";
 import { useRef } from "react";
 
-import { Sun } from "@/components/sun";
 import type { NextEdition } from "@/config/makeathon";
 import { heroCopy } from "@/content/copy";
-import { HalftoneField } from "@/halftone/halftone-field";
 import type { HeroView } from "@/lib/phase";
 
 import { HeroStatus } from "./hero-status";

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "@tum.ai/ui-kit/tailwind.css";
 @import "@tum.ai/ui-kit/shell.css";
-@import "../styles/sun.css";
+@import "@tum.ai/ui-kit/halftone.css";
 @import "../styles/hero.css";
 @import "../styles/weekend.css";
 @import "../styles/editions.css";
@@ -10,21 +10,22 @@
 
 /*
  * The Makeathon sun: the one accent this site adds to the TUM.ai palette.
- * Sampled from the 2025 and 2026 Makeathon posters (the rising sun behind the
- * wordmark and the amber halftone dots). Use it only for the sun, the
+ * The ramp lives in the kit next to the sun and the dots
+ * (`@tum.ai/ui-kit/halftone.css`, sampled from the 2025 and 2026 posters);
+ * here it becomes Tailwind colours. Use it only for the sun, the
  * halftone field and the weekend clock; everything else reads the kit's tone
  * tokens. `test/content-rules.test.ts` keeps it to those files.
  */
 @theme {
-  --color-sun-100: #fff18b;
-  --color-sun-200: #ffe07a;
-  --color-sun-300: #fdd06a;
-  --color-sun-400: #febc5c;
-  --color-sun-500: #f0a85a;
-  --color-sun-600: #d9905b;
-  --color-sun-700: #b97855;
-  --color-sun-800: #8f614c;
-  --color-sun-900: #5e4340;
+  --color-sun-100: var(--sun-100);
+  --color-sun-200: var(--sun-200);
+  --color-sun-300: var(--sun-300);
+  --color-sun-400: var(--sun-400);
+  --color-sun-500: var(--sun-500);
+  --color-sun-600: var(--sun-600);
+  --color-sun-700: var(--sun-700);
+  --color-sun-800: var(--sun-800);
+  --color-sun-900: var(--sun-900);
 
   /* The headline above everything else: the hero's "Makeathon". */
   --text-display-hero: clamp(4.25rem, 0.9rem + 14.4vw, 16.5rem);
