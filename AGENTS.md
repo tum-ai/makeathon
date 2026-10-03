@@ -33,6 +33,15 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
   `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub; the npm package ships
   no docs) before UI changes; fix kit problems in the kit, not here.
 
+## New components
+
+Before creating a component, ask whether another TUM.ai site could use it: generic, with no
+Makeathon facts, no sun ramp and no section-specific layout. If so, **stop and tell the user**
+before writing it, and propose building it in the kit. Only once they agree: build it in
+`../ui-kit` on its own branch, following the kit's `AGENTS.md` and PR template, open a pull
+request on `tum-ai/ui-kit`, and use it here once released (`update-kit`). If the user says to
+keep it local, build it here and say why in the PR's ui-kit checkbox.
+
 ## The signature pieces
 
 - `src/halftone/`: the WebGL2 halftone field (shader, renderer, `HalftoneField`), with a CSS
@@ -74,6 +83,19 @@ gates on `Verify`.
 `.github/workflows/vercel-production.yml` once CI passes; Vercel's own Git deploys are off. The
 workflow needs the repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`.
 There are no automatic PR previews.
+
+`main` changes only through pull requests (ruleset in `.github/rulesets/main.json`): squash merge,
+a green `Verify`, `Validate PR title` and `Validate PR body`, resolved threads, and approval from
+the code owner (`.github/CODEOWNERS`). Repository admins can merge their own pull requests
+without that approval but can't push to `main` directly.
+
+Pull requests fill in `.github/pull_request_template.md` completely; `Validate PR body`
+(`scripts/pr-body.mjs`) checks it. Every verification box is ticked or marked `n/a` with a
+reason. A pull request that changes anything under `src/` or `public/` (tests excluded) needs at
+least two images under `## Screenshots`, phone (390) and desktop (1440), unless it carries the
+`no-visual-change` label. Take them with `ui-verify` and attach them with
+`gh pr create --attach phone.png --attach desktop.png` (or `gh pr edit --attach`), then check
+they ended up in the Screenshots table and move them there if not.
 
 Claude Code: `.claude/skills/` has `pr-ready`, `ui-verify` and `update-kit`; `.claude/agents/`
 has read-only `design-reviewer` and `a11y-reviewer`.
