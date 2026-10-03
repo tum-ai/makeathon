@@ -1,5 +1,7 @@
 # TUM.ai Makeathon
 
+[![CI](https://github.com/tum-ai/makeathon/actions/workflows/ci.yml/badge.svg)](https://github.com/tum-ai/makeathon/actions/workflows/ci.yml)
+
 The website of the TUM.ai Makeathon, TUM.ai's 48-hour AI hackathon in Munich
 ([makeathon.tum-ai.com](https://makeathon.tum-ai.com)). Built on the TUM.ai design system,
 [`@tum.ai/ui-kit`](https://github.com/tum-ai/ui-kit).
@@ -34,16 +36,27 @@ Every date, figure, name and link is in [`src/config/makeathon.ts`](src/config/m
 the 2027 edition is fixed, fill in `nextEdition`. The page then moves through its phases on its own:
 announced, applications open (with a countdown), applications closed, live, and recap.
 
-Open content questions (each is a `TODO(content)` in the config):
-
-1. The 2026 schedule: kick-off, workshop, submission, pitch and award times.
-2. The 2027 dates, venue, application window and link, and a sign-up link for "tell me when
-   applications open".
-3. Which edition the two photos show, and more photos, especially from 2026.
-4. Whether the osapiens outcome ("40 competing teams, 20+ applications") was the Makeathon 2026.
+Facts that are not confirmed yet stay empty in the config and carry a `TODO(content)` note, so
+the page never shows a guess.
 
 ## The ui-kit
 
 The kit is installed from npm at an exact version. To update it, run
 `bun add -E @tum.ai/ui-kit@<version>`, then `bun run verify`; the production build's kit CSS
 sentinel catches kit styles that went missing.
+
+## Contributing
+
+Corrections and fixes are welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) covers setup, checks and
+conventions, and [`AGENTS.md`](AGENTS.md) documents the site's rules in depth. Everyone taking
+part agrees to the [code of conduct](CODE_OF_CONDUCT.md).
+
+## Security
+
+Please report vulnerabilities privately, as described in [`SECURITY.md`](SECURITY.md).
+
+## Licence
+
+Copyright (c) 2026 TUM.ai. All rights reserved; see [`LICENSE`](LICENSE). The source is public to
+read, but no licence to reuse it is granted. Partner logos, photos and posters belong to their
+owners.

@@ -1,0 +1,28 @@
+name: Content correction
+description: A date, figure, name or link on the site is wrong or out of date.
+labels: [content]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where on the site
+      placeholder: Editions, 2023 row
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What it says now
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should say
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link or document that confirms the correction.

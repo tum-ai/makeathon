@@ -13,7 +13,7 @@
  * Sampled from the 2025 and 2026 Makeathon posters (the rising sun behind the
  * wordmark and the amber halftone dots). Use it only for the sun, the
  * halftone field and the weekend clock; everything else reads the kit's tone
- * tokens. `test/brand.test.ts` keeps it to those files.
+ * tokens. `test/content-rules.test.ts` keeps it to those files.
  */
 @theme {
   --color-sun-100: #fff18b;
