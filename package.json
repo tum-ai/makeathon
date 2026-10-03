@@ -3,6 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "description": "The TUM.ai Makeathon website: 48 hours of AI in Munich.",
+  "homepage": "https://makeathon.tum-ai.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tum-ai/makeathon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tum-ai/makeathon/issues"
+  },
+  "license": "UNLICENSED",
+  "author": "TUM.ai",
   "type": "module",
   "packageManager": "bun@1.4.2",
   "engines": {

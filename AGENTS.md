@@ -70,12 +70,10 @@ gates on `Verify`.
 
 ## Delivery
 
-`main` deploys to production on Vercel (team `tum-ai`, project `makeathon`, config in
-`vercel.json`) through `.github/workflows/vercel-production.yml` once CI passes. Vercel's own Git
-deploys are off: it blocks commits whose author isn't on the tum-ai Vercel team. The workflow
-needs the repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`. There are
-no automatic PR previews. makeathon.tum-ai.com still points at the old `makeathon2022` project
-until the cutover.
+`main` deploys to production on Vercel (config in `vercel.json`) through
+`.github/workflows/vercel-production.yml` once CI passes; Vercel's own Git deploys are off. The
+workflow needs the repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`.
+There are no automatic PR previews.
 
 Claude Code: `.claude/skills/` has `pr-ready`, `ui-verify` and `update-kit`; `.claude/agents/`
 has read-only `design-reviewer` and `a11y-reviewer`.

@@ -1,0 +1,39 @@
+name: Bug report
+description: Something on the site looks or behaves wrong.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      description: The section or link, and the steps that lead there.
+      placeholder: |
+        1. Open https://makeathon.tum-ai.com
+        2. Scroll to the weekend replay
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      placeholder: Safari 26 on iPhone 16, Chrome 141 on macOS
+    validations:
+      required: true
+  - type: checkboxes
+    id: motion
+    attributes:
+      label: Settings
+      options:
+        - label: Reduced motion is turned on
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recordings
