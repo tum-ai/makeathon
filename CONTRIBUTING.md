@@ -44,8 +44,16 @@ build and the Playwright suite in Chromium, WebKit and a phone profile, which is
 - Commit subjects follow [Conventional Commits](https://www.conventionalcommits.org) with a
   lowercase summary of at most 72 characters, for example `fix(weekend): hold the clock on resize`.
   The `commit-msg` hook checks this; pull request titles are checked the same way.
-- Keep each pull request to one change and fill in the template, including how you verified it.
-- `main` deploys to production once CI passes, so every pull request needs a green `Verify` check
-  and a review.
+- Keep each pull request to one change and fill in the template completely, including how you
+  verified it. Tick every verification box, or leave it unticked with `n/a` and a reason.
+- If your change touches anything under `src/` or `public/`, add at least two screenshots, phone
+  (390) and desktop (1440), to the Screenshots section. If nothing visible changed, ask for the
+  `no-visual-change` label. The `Validate PR body` check enforces both.
+- New components that other TUM.ai sites could use belong in
+  [`@tum.ai/ui-kit`](https://github.com/tum-ai/ui-kit); mention it in the pull request if you
+  built one here.
+- `main` deploys to production once CI passes, so it only changes through pull requests. Each
+  one needs green `Verify`, `Validate PR title` and `Validate PR body` checks, resolved review
+  threads, and approval from the code owner. Pull requests are squash merged.
 
 By contributing, you agree that TUM.ai may use your contribution as part of this site.
