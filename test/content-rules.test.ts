@@ -26,7 +26,6 @@ describe("content rules", () => {
   it("keeps the Makeathon sun ramp to the sun, the dots and the clock", () => {
     const allowed = new Set([
       "src/app/globals.css",
-      "src/styles/sun.css",
       "src/styles/hero.css",
       "src/styles/weekend.css",
       "src/styles/close.css",

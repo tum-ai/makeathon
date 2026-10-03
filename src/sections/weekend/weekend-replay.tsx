@@ -1,6 +1,7 @@
 "use client";
 
 import { Container } from "@tum.ai/ui-kit";
+import { HalftoneField, type HalftoneHandle, Sun } from "@tum.ai/ui-kit/halftone";
 import {
   type CSSProperties,
   type KeyboardEvent,
@@ -10,10 +11,7 @@ import {
   useRef,
 } from "react";
 
-import { Sun } from "@/components/sun";
 import { weekendCopy } from "@/content/copy";
-import { HalftoneField } from "@/halftone/halftone-field";
-import type { HalftoneHandle } from "@/halftone/renderer";
 import { clamp01, dotColor, skyWeights, smoothstep } from "@/lib/sky";
 import { formatElapsed, formatWeekdayClock } from "@/lib/time";
 import { sampleSun, type WeekendView } from "@/lib/weekend-view";
