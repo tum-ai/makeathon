@@ -7,7 +7,7 @@ import { Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { NavScroll } from "@/components/nav-scroll";
-import { nextEdition, site } from "@/config/makeathon";
+import { nextEdition, referenceWeekend, site } from "@/config/makeathon";
 import { footerCopy, heroCopy, navigation } from "@/content/copy";
 import { getNow } from "@/lib/now";
 import { headerAction } from "@/lib/phase";
@@ -20,22 +20,27 @@ const manrope = Manrope({
 });
 
 const description = heroCopy.lead;
+const title = `${site.name}: ${referenceWeekend.hours}-hour AI hackathon in Munich`;
+const organizer = { name: "TUM.ai", url: site.tumai.url };
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "TUM.ai Makeathon", template: "%s · TUM.ai Makeathon" },
+  title: { default: title, template: `%s · ${site.name}` },
   description,
   applicationName: site.name,
+  authors: [organizer],
+  creator: organizer.name,
+  publisher: organizer.name,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: site.url,
     siteName: site.name,
-    title: "TUM.ai Makeathon",
+    title,
     description,
-    locale: "en",
+    locale: "en_GB",
   },
-  twitter: { card: "summary_large_image", title: "TUM.ai Makeathon", description },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 /*
