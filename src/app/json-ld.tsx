@@ -25,7 +25,16 @@ export function JsonLd() {
         location:
           edition.city === "Online"
             ? { "@type": "VirtualLocation", url: site.url }
-            : { "@type": "Place", name: edition.city },
+            : {
+                "@type": "Place",
+                name: edition.city,
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: edition.city,
+                  addressCountry: "DE",
+                },
+              },
+        eventStatus: "https://schema.org/EventScheduled",
         organizer,
       })),
       ...(nextEdition.weekend
@@ -36,7 +45,16 @@ export function JsonLd() {
               startDate: nextEdition.weekend.kickoff,
               endDate: nextEdition.weekend.end,
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-              location: { "@type": "Place", name: nextEdition.venue ?? "Munich" },
+              location: {
+                "@type": "Place",
+                name: nextEdition.venue ?? "Munich",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Munich",
+                  addressCountry: "DE",
+                },
+              },
+              eventStatus: "https://schema.org/EventScheduled",
               organizer,
               isAccessibleForFree: true,
             },
