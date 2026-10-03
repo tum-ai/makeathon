@@ -73,9 +73,9 @@ describe("config", () => {
   });
 
   it("keeps the list of open content questions from growing silently", () => {
-    // Lower this number as facts arrive; raise it only together with a
-    // question in the README's content list.
+    // Lower this number as facts arrive; raise it only together with a new,
+    // deliberate gap in the config.
     const source = readFileSync(join(process.cwd(), "src/config/makeathon.ts"), "utf8");
-    expect(source.match(/TODO\(content\)/g)?.length).toBe(11);
+    expect(source.match(/TODO\(content\)/g)?.length).toBe(10);
   });
 });

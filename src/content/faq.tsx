@@ -20,13 +20,13 @@ export function faqItems(edition: NextEdition): FaqItem[] {
     {
       id: "what",
       question: "What is the Makeathon?",
-      answer: `A ${referenceWeekend.hours}-hour hackathon in Munich. Teams of students and young professionals build AI prototypes for challenges that companies, hospitals and research labs bring. TUM.ai has run it since ${site.since}, ${inWords(editions.length)} editions so far.`,
+      answer: `TUM.ai's ${referenceWeekend.hours}-hour AI hackathon in Munich. Teams of students and young professionals spend a weekend building working prototypes for challenges from industry, healthcare and research. TUM.ai has hosted it every year since ${site.since}, with ${inWords(editions.length)} editions so far.`,
     },
     {
       id: "who",
       question: "Who can take part?",
       answer:
-        "Students, recent graduates and young professionals from any field. You don't need to be a tech person: what counts is your motivation to build something with AI.",
+        "Students, recent graduates and young professionals from any field. You don't need a technical background. What counts is the drive to build something with AI.",
     },
     {
       id: "cost",
@@ -43,7 +43,7 @@ export function faqItems(edition: NextEdition): FaqItem[] {
       id: "skills",
       question: "What skills do I need?",
       answer:
-        "None in particular. Workshops during the Makeathon cover many areas, so bring the motivation to learn and build.",
+        "None in particular. Workshops during the Makeathon cover a wide range of topics, so come ready to learn as you build.",
     },
     {
       id: "build",
@@ -54,7 +54,7 @@ export function faqItems(edition: NextEdition): FaqItem[] {
     {
       id: "prizes",
       question: "What can I win?",
-      answer: "Past editions awarded prizes such as money and a fast track into TUM.ai membership.",
+      answer: "Past editions awarded cash prizes and a fast track into TUM.ai membership.",
     },
     {
       id: "next",
@@ -64,7 +64,7 @@ export function faqItems(edition: NextEdition): FaqItem[] {
     {
       id: "league",
       question: `How does it relate to the ${league.name}?`,
-      answer: `TUM.ai founded the league in ${league.foundedYear}, and the Makeathon ${results2026.edition} was its first match. Every team from that weekend joined the league's first season.`,
+      answer: `TUM.ai founded the league in ${league.foundedYear}, and the Makeathon ${results2026.edition} was its first match. Every team from that weekend became part of the league's first season.`,
     },
     {
       id: "contact",
@@ -75,7 +75,7 @@ export function faqItems(edition: NextEdition): FaqItem[] {
           <Anchor href={`mailto:${site.questionsEmail}`} className="underline underline-offset-4">
             {site.questionsEmail}
           </Anchor>{" "}
-          and the Makeathon team gets back to you.
+          and the Makeathon team will get back to you.
         </>
       ),
     },

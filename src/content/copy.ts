@@ -49,7 +49,7 @@ const weekendDays = formatDateRange(
 export const heroCopy = {
   title: "Makeathon",
   tagline: "AI for everyone.",
-  lead: `A ${hours}-hour hackathon at TUM in Munich. Students and young professionals build AI for problems that companies, hospitals and research labs bring. Free to take part.`,
+  lead: `A ${hours}-hour hackathon at TUM in Munich. Students and young professionals build AI for real problems set by companies, hospitals and research labs. Free to take part.`,
 };
 
 export const weekendCopy = {
@@ -61,7 +61,7 @@ export const weekendCopy = {
     challenges: inWords(results2026.challenges.length),
     hours,
   },
-  lead: `Scroll through that weekend hour by hour, under the sky it had: the sun's real path over the ${referenceWeekend.place.name} from ${weekendDays}.`,
+  lead: `Scroll through that weekend hour by hour, under the real sky over the ${referenceWeekend.place.name} from ${weekendDays}.`,
   skip: `Skip the ${hours} hours`,
   sliderLabel: `The ${hours} hours of the Makeathon ${referenceWeekend.edition}`,
   momentsTitle: `The ${hours} hours, moment by moment`,
@@ -83,10 +83,10 @@ export const resultsCopy = {
   )} places each.`,
   lead: `The ${results2026.edition} results opened the ${league.name}: the top ${inWords(
     results2026.challenges[0].teams.length,
-  )} of every challenge took its first points, and every Makeathon team joined its first season.`,
+  )} in each challenge earned the league's first points.`,
   challengeLabel: "Challenge by",
   techTitle: "Tech partners",
-  leagueLink: "The match on the league's site",
+  leagueLink: "See the match on the league's site",
   pointsLabel: (points: number) => `${points} league points`,
 };
 
@@ -107,7 +107,7 @@ export const partnersCopy = {
 /** The next edition in one sentence, for the FAQ and the close. */
 export function nextEditionSentence(edition: NextEdition): string {
   if (!edition.weekend)
-    return `The ${edition.year} dates are not out yet. They appear on this page first.`;
+    return `The ${edition.year} dates are not announced yet. They will be published here.`;
   const range = formatDateRange(
     calendarDateOf(parseInstant(edition.weekend.kickoff)),
     calendarDateOf(parseInstant(edition.weekend.end)),

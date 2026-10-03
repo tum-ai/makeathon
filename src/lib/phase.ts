@@ -85,7 +85,7 @@ export function heroView(edition: NextEdition, now: number): HeroView {
       return {
         phase,
         status: `The Makeathon ${edition.year} is over`,
-        detail: "Thank you to every team. The next edition follows here.",
+        detail: "Thank you to every team. See you at the next Makeathon.",
         primary: partnerAction,
         secondary: { href: league.url, label: league.name, external: true },
       };
