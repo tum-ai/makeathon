@@ -36,12 +36,12 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.3.3",
-    "@tum.ai/ui-kit": "0.2.0",
+    "@tum.ai/ui-kit": "0.2.1",
     "clsx": "2.1.1",
-    "framer-motion": "13.5.0",
-    "next": "16.3.6",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
+    "framer-motion": "14.4.0",
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "tailwind-merge": "3.7.0",
     "tailwindcss": "4.3.3"
   },
