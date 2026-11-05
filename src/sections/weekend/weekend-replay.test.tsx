@@ -1,6 +1,6 @@
 import { expectNoAxeViolations } from "@test/axe";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { referenceWeekend } from "@/config/makeathon";
 import { buildWeekendView } from "@/lib/weekend";
@@ -35,11 +35,36 @@ describe("WeekendReplay", () => {
   });
 
   it("keeps the CSS dot field when WebGL is unavailable", async () => {
-    const { container } = render(<WeekendReplay view={view} />);
-    const field = container.querySelector("[data-halftone]");
-    // Pending (CSS dots hidden) until the renderer has tried, then the fallback.
-    expect(field).toHaveAttribute("data-halftone", "pending");
-    await waitFor(() => expect(field).toHaveAttribute("data-halftone", "css"));
-    expect(field?.closest("[aria-hidden='true']")).not.toBeNull();
+    // The kit's field starts once it comes within a viewport of the screen:
+    // report it as on screen.
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(private callback: IntersectionObserverCallback) {}
+        observe(target: Element) {
+          queueMicrotask(() =>
+            this.callback(
+              [{ isIntersecting: true, target } as IntersectionObserverEntry],
+              this as unknown as IntersectionObserver,
+            ),
+          );
+        }
+        unobserve() {}
+        disconnect() {}
+        takeRecords() {
+          return [];
+        }
+      },
+    );
+    try {
+      const { container } = render(<WeekendReplay view={view} />);
+      const field = container.querySelector("[data-halftone]");
+      // Pending (CSS dots hidden) until the renderer has tried, then the fallback.
+      expect(field).toHaveAttribute("data-halftone", "pending");
+      await waitFor(() => expect(field).toHaveAttribute("data-halftone", "css"));
+      expect(field?.closest("[aria-hidden='true']")).not.toBeNull();
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
