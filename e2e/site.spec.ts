@@ -56,7 +56,7 @@ test.describe("the Makeathon site", () => {
     await expect(slider).toHaveAttribute("aria-valuenow", "2880");
   });
 
-  test("holds the weekend stage still without sticking it", async ({ page }) => {
+  test("holds the weekend stage still, sticky everywhere but iOS", async ({ page }) => {
     await page.goto("/");
     const stage = page.locator(".replay-stage");
     const box = await page.locator(".replay").evaluate((el) => ({
@@ -72,12 +72,15 @@ test.describe("the Makeathon site", () => {
         .poll(() => stage.evaluate((el) => Math.abs(el.getBoundingClientRect().top)))
         .toBeLessThanOrEqual(1);
     }
-    // A sticky stage makes Safari tint its bars solid (AGENTS.md, "Safari bars").
-    const sticky = await stage.evaluate(
-      (el) =>
-        CSS.supports("animation-timeline: view()") && getComputedStyle(el).position === "sticky",
-    );
-    expect(sticky).toBe(false);
+    // A sticky stage makes iPhone Safari tint its bars solid (AGENTS.md, "Safari bars"), so
+    // iOS WebKit pins it with a scroll-driven translate; every other engine uses sticky,
+    // which its compositor holds without lag.
+    const pin = await stage.evaluate((el) => ({
+      ios:
+        CSS.supports("animation-timeline: view()") && CSS.supports("-webkit-touch-callout: none"),
+      sticky: getComputedStyle(el).position === "sticky",
+    }));
+    expect(pin.sticky).toBe(!pin.ios);
   });
 
   test("keeps the weekend in the flow under reduced motion", async ({ page }) => {

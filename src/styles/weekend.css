@@ -34,14 +34,19 @@
   }
 
   /*
-   * Safari 26 tints its status bar and toolbar solid from a sticky element
-   * at the screen edges and keeps that tint for the rest of the page, so
-   * where scroll timelines exist the stage is not sticky. It stays in the
-   * flow and a scroll-driven translate carries it down exactly as fast as
-   * the page scrolls, over the same span (replay minus stage) that sticky
-   * would hold it. See "Safari bars" in AGENTS.md.
+   * Safari 26 on iPhone tints its status bar and toolbar solid from a sticky
+   * element at the screen edges and keeps that tint for the rest of the
+   * page, so there the stage is not sticky. It stays in the flow and a
+   * scroll-driven translate carries it down exactly as fast as the page
+   * scrolls, over the same span (replay minus stage) that sticky would hold
+   * it. See "Safari bars" in AGENTS.md.
+   *
+   * Only iOS WebKit (the one engine with -webkit-touch-callout) takes this
+   * path. Everywhere else sticky pins the stage on the compositor; Firefox's
+   * scroll timelines leave the translated stage behind the scroll, so it
+   * jumps up and down.
    */
-  @supports (animation-timeline: view()) {
+  @supports (animation-timeline: view()) and (-webkit-touch-callout: none) {
     :root[data-js] .replay {
       view-timeline: --replay block;
       view-timeline-inset: 0;

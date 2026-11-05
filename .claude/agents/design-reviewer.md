@@ -7,7 +7,7 @@ tools: Read, Grep, Glob, Bash
 Review the changed files against AGENTS.md and the kit's `docs/design-system.md` (`../ui-kit`):
 
 - Kit tone bands and tokens only; no stock Tailwind colours or raw hex.
-- The sun ramp (`--color-sun-*`) appears only in `src/styles/{sun,hero,weekend,close}.css`, for
+- The sun ramp (`--color-sun-*`) appears only in `src/styles/{hero,weekend,close}.css`, for
   the sun, the halftone dots and the clock.
 - Motion is transform and opacity with `ease-brand`, behind `motion-safe:` or a reduced-motion
   check. Scroll code writes custom properties, never React state.
