@@ -21,17 +21,18 @@ Preserve unrelated work; no commits, pushes or deployments without authorization
   them with a plausible guess. `makeathon.test.ts` pins the number of open TODOs.
 - **Copy:** plain, confident sentences in sentence case; no em or en dashes (a test scans `src`);
   labels never in capitals.
-- **Colour:** the kit's tone tokens. The one addition is the Makeathon sun ramp (`--color-sun-*`
-  in `globals.css`), only for the sun, the halftone dots and the weekend clock; a test keeps it
-  to `src/styles/{sun,hero,weekend,close}.css`.
+- **Colour:** the kit's tone tokens. The one addition is the Makeathon sun ramp (the kit's
+  `--sun-*` from `halftone.css`, as Tailwind's `--color-sun-*` in `globals.css`), only for the
+  sun, the halftone dots and the weekend clock; a test keeps it to
+  `src/styles/{hero,weekend,close}.css`.
 - **Motion:** transform and opacity only, `ease-brand`, behind `motion-safe:` or a
   reduced-motion check. Scroll-driven code writes custom properties and text, never React state.
 - **Server/client:** the solar model and the weekend builder (`src/lib/solar.ts`,
   `src/lib/weekend.ts`) run on the server; client code reads `src/lib/weekend-view.ts`. ESLint
   enforces it.
-- **Kit:** import from `@tum.ai/ui-kit` and `@tum.ai/ui-kit/shell` only. Read the kit's
-  `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub; the npm package ships
-  no docs) before UI changes; fix kit problems in the kit, not here.
+- **Kit:** import from `@tum.ai/ui-kit`, `@tum.ai/ui-kit/shell` and `@tum.ai/ui-kit/halftone`
+  only. Read the kit's `docs/design-system.md` (in the sibling checkout `../ui-kit` or on GitHub;
+  the npm package ships no docs) before UI changes; fix kit problems in the kit, not here.
 
 ## New components
 
@@ -44,8 +45,9 @@ keep it local, build it here and say why in the PR's ui-kit checkbox.
 
 ## The signature pieces
 
-- `src/halftone/`: the WebGL2 halftone field (shader, renderer, `HalftoneField`), with a CSS
-  fallback rendered on the server.
+- The WebGL2 halftone field and the sun (`HalftoneField`, `Sun`), with a CSS fallback rendered
+  on the server. They live in the kit (`@tum.ai/ui-kit/halftone`, styles in `halftone.css`);
+  the sections tune them through props and their own CSS.
 - `src/sections/weekend/weekend-replay.tsx`: the pinned 48-hour replay, driven by scroll, with an
   ARIA slider and a static path for reduced motion.
 - `src/components/nav-scroll.tsx`: in-page links glide past pinned scenes (`data-scroll-skip`).
@@ -61,9 +63,12 @@ the page should show through both bars, as on tum-ai.com.
   a seam.
 - The kit header floats 10 px below the top edge so it doesn't tint the status bar.
 - No sticky or fixed element may touch a screen edge. Once Safari has tinted the bars from one,
-  the tint stays for the rest of the page. The pinned 48-hour replay therefore doesn't use
-  `position: sticky` where scroll timelines exist: a scroll-driven translate holds the stage
-  instead (`src/styles/weekend.css`), and an e2e test checks it stays still and isn't sticky.
+  the tint stays for the rest of the page. On iOS (scroll timelines plus
+  `-webkit-touch-callout`) the pinned 48-hour replay therefore doesn't use `position: sticky`: a
+  scroll-driven translate holds the stage instead (`src/styles/weekend.css`). Every other engine
+  keeps sticky, because there the translate can lag the scroll (Firefox jumps up and down). An e2e
+  test checks the stage stays still and is sticky exactly off iOS. Playwright's WebKit is the
+  desktop build, so CI only runs the sticky path; check the translate on a real iPhone.
 - As on tum-ai.com, nothing dark spans the whole document (`src/app/layout.tsx`): no
   `color-scheme` meta and no tone on `#app-root`. Every band sets its own `data-tone`, which also
   gives the dark ones `color-scheme: dark`.
