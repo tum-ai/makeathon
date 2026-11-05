@@ -31,6 +31,7 @@
     "test": "vitest run --project unit --project dom",
     "test:coverage": "vitest run --project unit --project dom --coverage",
     "test:e2e": "playwright test",
+    "perf": "node scripts/perf.mjs",
     "verify": "bun run lint && bun run format:check && bun run typecheck && bun run test && bun run build && bun run test:e2e",
     "prepare": "node scripts/install-hooks.mjs"
   },
@@ -38,7 +39,6 @@
     "@tailwindcss/postcss": "4.3.3",
     "@tum.ai/ui-kit": "0.2.3",
     "clsx": "2.1.1",
-    "framer-motion": "13.5.0",
     "next": "16.3.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
