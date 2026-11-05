@@ -1,8 +1,10 @@
 /*
  * The 48-hour replay. The scroll driver (weekend-replay.tsx) writes a few
- * custom properties on the stage (--p, the playhead from 0 to 1) and on the
+ * custom properties on the ruler (--p, the playhead from 0 to 1) and on the
  * sun (--sun-x, --sun-y in container units), and the layer opacities; all
  * motion is transform and opacity, so scrolling never repaints a gradient.
+ * Each property goes on the smallest element that reads it: an inherited
+ * custom property restyles everything below where it is set, every frame.
  *
  * Pinned only with JavaScript and without reduced motion. Otherwise the
  * stage sits in the flow and the slider alone moves the sun.

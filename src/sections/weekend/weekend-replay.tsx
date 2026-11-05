@@ -111,7 +111,9 @@ export function WeekendReplay({ view }: { view: WeekendView }) {
     (minute: number) => {
       const m = Math.min(view.minutes, Math.max(0, minute));
       const state = visualState(view, m);
-      stageRef.current?.style.setProperty("--p", state.p.toFixed(5));
+      // On the ruler, not the stage: a custom property set on the stage would
+      // restyle every element under it on every scrolled frame.
+      rulerRef.current?.style.setProperty("--p", state.p.toFixed(5));
       const sun = sunRef.current;
       if (sun) {
         sun.style.setProperty("--sun-x", state.x.toFixed(3));
@@ -257,7 +259,7 @@ export function WeekendReplay({ view }: { view: WeekendView }) {
     seek(clamp01((event.clientX - box.left) / box.width) * view.minutes);
   };
 
-  const stageStyle = { "--p": initial.p.toFixed(5) } as CSSProperties;
+  const rulerStyle = { "--p": initial.p.toFixed(5) } as CSSProperties;
   const sunStyle = {
     "--sun-x": initial.x.toFixed(3),
     "--sun-y": initial.y.toFixed(3),
@@ -266,7 +268,7 @@ export function WeekendReplay({ view }: { view: WeekendView }) {
 
   return (
     <div ref={wrapperRef} className="replay" data-scroll-skip="">
-      <div ref={stageRef} className="replay-stage" style={stageStyle}>
+      <div ref={stageRef} className="replay-stage">
         <div className="replay-sky" aria-hidden="true">
           <div className="replay-atmosphere">
             <div
@@ -359,6 +361,7 @@ export function WeekendReplay({ view }: { view: WeekendView }) {
               aria-valuenow={Math.round(initialMinute)}
               aria-valuetext={valueText(view, Math.round(initialMinute), initial.sun.elevation)}
               className="ruler mt-6 md:mt-8"
+              style={rulerStyle}
               onKeyDown={onKeyDown}
               onPointerDown={(event) => {
                 event.currentTarget.setPointerCapture(event.pointerId);
