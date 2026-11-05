@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import { MotionProvider } from "@tum.ai/ui-kit";
 import { Footer, Header, SkipLink } from "@tum.ai/ui-kit/shell";
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
@@ -13,8 +12,11 @@ import { getNow } from "@/lib/now";
 import { headerAction } from "@/lib/phase";
 import { footerColumns, logo } from "@/shell/site-shell";
 
+// `subsets` picks the files to preload; every subset's @font-face still ships
+// with its unicode-range, so a name in latin-ext loads its glyphs on demand.
+// All copy fits the latin subset, so only that one competes for bandwidth.
 const manrope = Manrope({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -68,24 +70,29 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: scriptedMarker }} />
       </head>
       <body>
-        <MotionProvider>
-          <div id="app-root">
-            <SkipLink />
-            <Header
-              logo={logo}
-              navigation={navigation.map((link) => ({ ...link }))}
-              cta={cta}
-              homeLabel="TUM.ai Makeathon, back to the top"
-            />
-            {children}
-            <Footer
-              logo={logo}
-              tagline={footerCopy.tagline}
-              columns={footerColumns}
-              bottomLine={<p>{footerCopy.bottomLine(new Date(now).getUTCFullYear())}</p>}
-            />
-          </div>
-        </MotionProvider>
+        {/*
+         * No kit MotionProvider: nothing on the site renders framer-motion's
+         * `m.*` components (CountUp animates imperatively and checks reduced
+         * motion itself), so the provider would only ship LazyMotion's
+         * animation features to every visitor. Add it back with the first
+         * `m.*` component.
+         */}
+        <div id="app-root">
+          <SkipLink />
+          <Header
+            logo={logo}
+            navigation={navigation.map((link) => ({ ...link }))}
+            cta={cta}
+            homeLabel="TUM.ai Makeathon, back to the top"
+          />
+          {children}
+          <Footer
+            logo={logo}
+            tagline={footerCopy.tagline}
+            columns={footerColumns}
+            bottomLine={<p>{footerCopy.bottomLine(new Date(now).getUTCFullYear())}</p>}
+          />
+        </div>
         <NavScroll />
       </body>
     </html>
