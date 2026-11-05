@@ -31,6 +31,7 @@
     "test": "vitest run --project unit --project dom",
     "test:coverage": "vitest run --project unit --project dom --coverage",
     "test:e2e": "playwright test",
+    "perf": "node scripts/perf.mjs",
     "verify": "bun run lint && bun run format:check && bun run typecheck && bun run test && bun run build && bun run test:e2e",
     "prepare": "node scripts/install-hooks.mjs"
   },
