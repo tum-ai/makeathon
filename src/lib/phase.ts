@@ -115,7 +115,7 @@ export function heroView(edition: NextEdition, now: number): HeroView {
 export function closeActions(edition: NextEdition, now: number): [Action, Action] {
   const phase = getPhase(edition, now);
   const partner: Action = {
-    href: `mailto:${site.partnerEmail}?subject=${encodeURIComponent("Partnering on the Makeathon")}`,
+    href: `mailto:${site.email}?subject=${encodeURIComponent("Partnering on the Makeathon")}`,
     label: "Partner with us",
   };
   if (phase === "applications-open" && edition.applications.url)
