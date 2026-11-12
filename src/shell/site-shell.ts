@@ -29,8 +29,7 @@ export const footerColumns: FooterColumn[] = [
     id: "contact",
     title: "Contact",
     links: [
-      { href: `mailto:${site.partnerEmail}`, label: "Partnerships" },
-      { href: `mailto:${site.questionsEmail}`, label: "Questions" },
+      { href: `mailto:${site.email}`, label: "Email" },
       { href: site.social.instagram, label: "Instagram" },
       { href: site.social.linkedin, label: "LinkedIn" },
     ],

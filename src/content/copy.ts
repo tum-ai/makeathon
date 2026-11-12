@@ -100,7 +100,7 @@ export const partnersCopy = {
   title: "Bring a challenge.",
   lead: "Partners set the problems the Makeathon is built around. A challenge comes with:",
   action: "Email the Makeathon team",
-  actionHref: `mailto:${site.partnerEmail}?subject=${encodeURIComponent("Partnering on the Makeathon")}`,
+  actionHref: `mailto:${site.email}?subject=${encodeURIComponent("Partnering on the Makeathon")}`,
   pastTitle: "Partners of past editions",
 };
 

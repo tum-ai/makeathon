@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/tum-ai/makeathon/security/advisories/new
     about: Please report vulnerabilities privately, as described in SECURITY.md.
   - name: Ask about the Makeathon
-    url: mailto:makeathon-communication@tum-ai.com
+    url: mailto:makeathon@tum-ai.com
     about: Questions about taking part, dates or applications go to the Makeathon team.
   - name: Partner with the Makeathon
     url: mailto:makeathon@tum-ai.com

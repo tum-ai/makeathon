@@ -54,7 +54,7 @@ export function faqItems(edition: NextEdition): FaqItem[] {
     {
       id: "prizes",
       question: "What can I win?",
-      answer: "Past editions awarded cash prizes and a fast track into TUM.ai membership.",
+      answer: "Past editions awarded cash prizes.",
     },
     {
       id: "next",
@@ -72,8 +72,8 @@ export function faqItems(edition: NextEdition): FaqItem[] {
       answer: (
         <>
           Email{" "}
-          <Anchor href={`mailto:${site.questionsEmail}`} className="underline underline-offset-4">
-            {site.questionsEmail}
+          <Anchor href={`mailto:${site.email}`} className="underline underline-offset-4">
+            {site.email}
           </Anchor>{" "}
           and the Makeathon team will get back to you.
         </>

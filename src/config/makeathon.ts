@@ -28,10 +28,8 @@ export const site = {
     imprint: "https://www.tum-ai.com/imprint",
     privacy: "https://www.tum-ai.com/data-privacy",
   },
-  /** Partnerships: the address the old site's sponsor button used. */
-  partnerEmail: "makeathon@tum-ai.com",
-  /** Participant questions: the address in the old site's FAQ. */
-  questionsEmail: "makeathon-communication@tum-ai.com",
+  /** The Makeathon team's address, for participants and partners alike. */
+  email: "makeathon@tum-ai.com",
   social: {
     instagram: "https://www.instagram.com/tum.ai_official/",
     linkedin: "https://www.linkedin.com/school/tum-ai/",
